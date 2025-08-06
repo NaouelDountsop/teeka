@@ -39,7 +39,7 @@ export default function FavoritesScreen() {
   );
 
   const svgHeight = Math.min(width * 2, 600);
-  const searchMarginTop = height * 0.15;
+  const searchMarginTop = height * 0.12;
 
   const handleCloseModal = () => {
     setModalVisible(false);
@@ -62,10 +62,7 @@ export default function FavoritesScreen() {
         </TouchableOpacity>
 
         <View
-          style={[
-            styles.logoWrapper,
-            { backgroundColor: isDark ? '#FFFFFF' : 'transparent' },
-          ]}
+         
         >
           <Image
             source={require('@/assets/images/logo.png')}
@@ -260,7 +257,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     zIndex: 10,
-    marginTop: 15,
+    marginTop: 10,
   },
   logoWrapper: {
     width: 90,
@@ -269,11 +266,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
-    marginLeft: 30,
+   
   },
   logo: {
-    width: 70,
-    height: 70,
+    width: 80,
+    height: 80,
+    marginLeft: 35,
   },
   searchContainer: {
     flexDirection: 'row',

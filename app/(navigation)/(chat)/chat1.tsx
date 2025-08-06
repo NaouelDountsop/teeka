@@ -14,6 +14,8 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useThemeColor } from "@/components/useThemeColors";
 import BackgroundSvg from "@/assets/icon/icon3.svg";
+import { useRouter } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
 
 type Message = {
   id: string;
@@ -28,6 +30,7 @@ export default function ChatSupportScreen() {
   const flatListRef = useRef<FlatList>(null);
   const { colors } = useThemeColor();
   const { width } = useWindowDimensions();
+  const router = useRouter();
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -109,8 +112,17 @@ export default function ChatSupportScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
-   
-      <View style={{ position: "absolute", top: 0, width: "100%", zIndex: 0 }}>
+      {/* Conteneur SVG, au-dessus des messages */}
+      <View
+        style={{
+          position: "absolute",
+          top: 0,
+          width: "100%",
+          height: width * 2.2,
+          zIndex: 3,
+        }}
+        pointerEvents="none"
+      >
         <BackgroundSvg
           width={width}
           height={width * 2.2}
@@ -118,25 +130,48 @@ export default function ChatSupportScreen() {
         />
       </View>
 
-   
+     
+
+      {/* Bouton retour au-dessus de tout */}
+      <View
+        style={{
+          position: "absolute",
+          top: 40,
+          left: 20,
+          zIndex: 5,
+          flexDirection: "row",
+          alignItems: "center",
+          marginTop: 40,
+        }}
+      >
+        <TouchableOpacity onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={28} color={colors.text} />
+        </TouchableOpacity>
+      </View>
+
+    
       <KeyboardAvoidingView
         style={[styles.container]}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={100}
+        keyboardVerticalOffset={30}
       >
         <FlatList
           ref={flatListRef}
           data={messages}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
-          contentContainerStyle={{ flexGrow: 1, padding: 12, paddingTop: width * 0.6 }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            padding: 12,
+            paddingTop: width * 1.2,
+          }}
           keyboardShouldPersistTaps="handled"
           onContentSizeChange={() =>
             flatListRef.current?.scrollToEnd({ animated: true })
           }
         />
 
-      
+        {/* Zone de saisie */}
         <View style={[styles.inputContainer]}>
           <View
             style={[
@@ -178,9 +213,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 16,
     marginBottom: 10,
+  
   },
   messageText: {
     fontSize: 12,
+    
   },
   messageTime: {
     fontSize: 10,
@@ -189,6 +226,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     padding: 10,
+  
+   
   },
   inputWrapper: {
     flexDirection: "row",
@@ -200,6 +239,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     elevation: 3,
+  
   },
   input: {
     flex: 1,
@@ -207,6 +247,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingTop: 8,
     maxHeight: 100,
+  
   },
   sendButton: {
     borderRadius: 20,
@@ -214,5 +255,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     marginLeft: 6,
+    
+
   },
+
+  
 });

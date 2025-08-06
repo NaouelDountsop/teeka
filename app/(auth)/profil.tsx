@@ -95,7 +95,7 @@ export default function ProfileScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Infos personnelles stylées */}
+        
         <View style={[styles.infoCard, shadowStyle]}>
           <Ionicons name="person-outline" size={16} color={colors.primary9} />
           <Text style={[styles.value, { color: colors.text }]}>{user.name}</Text>

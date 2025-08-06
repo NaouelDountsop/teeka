@@ -187,7 +187,7 @@ const Page6: React.FC = () => {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
     
       <View style={styles.svgContainer}>
-        <BackgroundSvg width={width} height={width * 1.5} preserveAspectRatio="none" />
+        <BackgroundSvg width={width} height={width * 1.7} preserveAspectRatio="none" />
       </View>
 
      
